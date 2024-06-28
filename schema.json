@@ -1,0 +1,142 @@
+{
+	"$schema": "https://json-schema.org/draft/2019-09/schema",
+	"$id": "TravelModelV4.json",
+	"description": "Travel Addendum Data of the transaction - addendumType = TRVL",
+	"type": "object",
+	"properties": {
+		"departureDate": {
+			"type": ["string","null"],
+			"example": "2018-08-16",
+			"description": "Date of departure for the first leg of travel",
+			"dataClassification": ["PII"]
+		},
+		"issueDate": {
+			"type": ["string","null"],
+			"example": "2018-08-16",
+			"description": "Date when the ticket was issued to the ticket holder",
+			"dataClassification": ["PII"]
+		},
+		"numberOfLegs": {
+			"type": ["null","integer"],
+			"format": "int32",
+			"example": 3,
+			"description": "Number of city pairs included on the ticket",
+			"dataClassification": []
+		},
+		"passengerName": {
+			"type": ["string","null"],
+			"example": "DOE/JOHN",
+			"description": "Name of the person to whom the ticked was issued",
+			"dataClassification": ["sensitive"]
+		},
+		"segments": {
+			"type": ["null","array"],
+			"description": "Travel segments - only available if schema 'addendumDetails' or 'travelDetails' is provided",
+			"items": {
+				"$ref": "TravelDetailModelV4.json#"
+			}
+		},
+		"ticketNumber": {
+			"type": ["string","null"],
+			"example": "0183693651174",
+			"description": "Ticket Number",
+			"dataClassification": ["sensitive"]
+		},
+		"totalFare": {
+			"description": "Total fare",
+			"$ref": "AmountModelV4.json#"
+		},
+		"totalFee": {
+			"description": "Total fee",
+			"$ref": "AmountModelV4.json#"
+		},
+		"totalTaxAmount": {
+			"description": "Total tax amount",
+			"$ref": "AmountModelV4.json#"
+		},
+		"travelAgencyName": {
+			"type": ["string","null"],
+			"example": "SOUTHWEST AIRLINES CO.",
+			"description": "Name of the travel agency that booked the ticket",
+			"dataClassification": []
+		},
+		"baseFare": {
+			"description": "Base fare",
+			"$ref": "AmountModelV4.json#"
+		},
+		"commodityCode": {
+			"type": "string",
+			"example": "120-00",
+			"description": "Commodity code",
+			"dataClassification": []
+		},
+		"conjunctionId": {
+			"type": "string",
+			"example": "1234567",
+			"description": "ID for a ticket that contains an itinerary that is more than four segments",
+			"dataClassification": []
+		},
+		"customData": {
+			"type": "array",
+			"description": "Custom data for travel",
+			"items": {
+				"$ref": "CustomDataModelV4Post.json#"
+			}
+		},
+		"customerData": {
+			"type": "string",
+			"description": "Customer data",
+			"dataClassification": []
+		},
+		"domestic": {
+			"type": "boolean",
+			"description": "Indicates whether the the travel is domestic",
+			"dataClassification": []
+		},
+		"electronicTicket": {
+			"type": "boolean",
+			"description": "Indicates whether the ticket is an e-ticket",
+			"dataClassification": []
+		},
+		"endorsements": {
+			"type": "string",
+			"description": "Describes the fare issued by the airline",
+			"dataClassification": []
+		},
+		"exchangedTicketAmount": {
+			"description": "Exchanged ticket amount",
+			"$ref": "AmountModelV4.json#"
+		},
+		"exchangedTicketNumber": {
+			"type": "string",
+			"description": "Number of the new ticket which replaces the original ticket",
+			"dataClassification": ["sensitive"]
+		},
+		"refundTicketNumber": {
+			"type": "string",
+			"description": "Refund ticket number",
+			"dataClassification": ["sensitive"]
+		},
+		"issuingCarrier": {
+			"type": "string",
+			"description": "Airline or railway carrier",
+			"dataClassification": []
+		},
+		"restrictionsApply": {
+			"type": "boolean",
+			"description": "Identifier noting ticket purchased has some restriction associated with its use",
+			"dataClassification": []
+		},
+		"travelAgencyInvoiceNumber": {
+			"type": "string",
+			"description": "Invoice number assigned by the travel agency that booked the ticket",
+			"dataClassification": []
+		},
+		"travelAgencyCode": {
+			"type": "string",
+			"description": "Code assigned to the travel agency that booked the ticket",
+			"dataClassification": []
+		}
+	},
+	"additionalProperties": false
+}
