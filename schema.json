@@ -4,12 +4,6 @@
 	"description": "Travel Addendum Data of the transaction - addendumType = TRVL",
 	"type": "object",
 	"properties": {
-		"departureDate": {
-			"type": ["string","null"],
-			"example": "2018-08-16",
-			"description": "Date of departure for the first leg of travel",
-			"dataClassification": ["PII"]
-		},
 		"issueDate": {
 			"type": ["string","null"],
 			"example": "2018-08-16",
