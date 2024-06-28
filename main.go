@@ -110,6 +110,10 @@ func validateJSONSchema(filePath string) error {
 		fmt.Println("\033[0m")
 		fmt.Println(count, "structures were checked")
 		fmt.Println("There are\033[31m", dataClassifiedCount, "\033[0mstructures with no DataClassification field")
+
+		if dataClassifiedCount > 0 {
+			return err
+		}
 	}
 	if countObjects != countFalseProperties {
 		fmt.Printf("There are %d structures of type 'object', and %d of them has additionalProperties field defined as false", countObjects, countFalseProperties)
