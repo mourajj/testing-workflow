@@ -10,17 +10,24 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
           go-version: '1.21.x'
+
       - name: Install dependencies
         run: go mod download
+
       - name: List modified files
         id: list_files
         run: |
+          git fetch origin +refs/pull/${{ github.event.pull_request.number }}/merge # Ensure all PR commits are fetched
           git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} > modified_files.txt
           cat modified_files.txt
+
       - name: Run schema verification
         run: |
           go run main.go modified_files.txt
