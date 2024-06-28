@@ -21,7 +21,7 @@ func main() {
 	for scanner.Scan() {
 		filePath := scanner.Text()
 		if strings.HasSuffix(filePath, ".json") {
-			fmt.Println("Validating:", filePath)
+			fmt.Println("Validating: ", filePath)
 			err := validateJSONSchema(filePath)
 			if err != nil {
 				fmt.Println("Validation failed for", filePath, ":", err)
