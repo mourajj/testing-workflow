@@ -1,142 +1,434 @@
 {
-	"$schema": "https://json-schema.org/draft/2019-09/schema",
-	"$id": "TravelModelV4.json",
-	"description": "Travel Addendum Data of the transaction - addendumType = TRVL",
-	"type": "object",
-	"properties": {
-		"departureDate": {
-			"type": ["string","null"],
-			"example": "2018-08-16",
-			"description": "Date of departure for the first leg of travel",
-			"dataClassification": ["PII"]
-		},
-		"issueDate": {
-			"type": ["string","null"],
-			"example": "2018-08-16",
-			"description": "Date when the ticket was issued to the ticket holder",
-			"dataClassification": ["PII"]
-		},
-		"numberOfLegs": {
-			"type": ["null","integer"],
-			"format": "int32",
-			"example": 3,
-			"description": "Number of city pairs included on the ticket",
-			"dataClassification": []
-		},
-		"passengerName": {
-			"type": ["string","null"],
-			"example": "DOE/JOHN",
-			"description": "Name of the person to whom the ticked was issued",
-			"dataClassification": ["sensitive"]
-		},
-		"segments": {
-			"type": ["null","array"],
-			"description": "Travel segments - only available if schema 'addendumDetails' or 'travelDetails' is provided",
-			"items": {
-				"$ref": "TravelDetailModelV4.json#"
+	"$schema":"https://json-schema.org/draft/2020-12/schema",
+	"$id":"cash-advance-add-schema.json",
+	"version":"v1",
+	"title":"Cash Advance UAC API",
+	"description":"Cash Advance JSON Schema",
+	"type":"object",
+	"properties":{
+	   "paymentType":{
+		  "type":"object",
+		  "additionalProperties":false,
+		  "properties":{
+			 "description":{
+				"dataClassification":[],
+				"description":"payment type of the cash advance",
+				"type":"string"
+			 },
+			 "paymentCode":{
+				"dataClassification":[],
+				"description":"payment code of the cash advance",
+				"type":"string"
+			 }
+		  },
+		  "required":[
+			 "description",
+			 "paymentCode"
+		  ]
+	   },
+	   "exchangeRate":{
+		  "type":"object",
+		  "additionalProperties":false,
+		  "properties":{
+			 "operation":{
+				"dataClassification":[],
+				"description":"exchangeRate rate operation. Supported values: 'MULTIPLY' ",
+				"type":"string"
+			 },
+			 "value":{
+				"dataClassification":[],
+				"description":"exchangeRate of the cash advance",
+				"type":"string"
+			 }
+		  }
+	   },
+	   "amountRequested":{
+		  "type":"object",
+		  "additionalProperties":false,
+		  "properties":{
+			 "amount":{
+				"dataClassification":[],
+				"description":"requested cash advance amount",
+				"type":"string"
+			 },
+			 "currency":{
+				"dataClassification":[],
+				"description":"The 3-letter ISO 4217 currency code",
+				"type":"string"
+			 }
+		  },
+		  "required":[
+			 "amount",
+			 "currency"
+		  ]         
+	   },
+	   "availableBalance":{
+		  "type":[
+			 "null",
+			 "object"
+		  ],
+		  "additionalProperties":false,
+		  "properties":{
+			 "amount":{
+				"dataClassification":[],
+				"description":"Amount which is available yet to be submitted against this cash advance",
+				"type":[
+				   "null", 
+				   "string"
+				]
+			 },
+			 "currency":{
+				"dataClassification":[],
+				"description":"The 3-letter ISO 4217 currency code",
+				"type":[
+				   "null", 
+				   "string"
+				]
+			 }
+		  }
+	   },
+	   "approvalStatus":{
+		  "type":"object",
+		  "additionalProperties":false,
+		  "properties":{
+			 "name":{
+				"dataClassification":[],
+				"description":"current status of the cash advance",
+				"type":"string"
+			 },
+			 "code":{
+				"dataClassification":[],
+				"description":"Cash Advance Status Key ",
+				"type":"string"
+			 }
+		  },
+		  "required":[
+			 "name",
+			 "code"
+		  ]         
+	   },
+	   "cashAdvanceId":{
+		  "dataClassification":[],
+		  "description":"unique ID of the cash advance",
+		  "type":"string"
+	   },
+	   "requestDate":{
+		  "dataClassification":[],
+		  "description":"date the cash advance was requested",
+		  "type":"string",
+		  "format":"date-time"
+	   },
+	   "name":{
+		  "dataClassification":[],
+		  "description":"cash advance name",
+		  "type":"string"
+	   },
+	   "purpose":{
+		  "dataClassification":[],
+		  "description":"business justification for requesting the cash advance",
+		  "type":[
+			 "null",
+			 "string"
+		  ]
+	   },
+	   "issuedDate":{
+		  "dataClassification":[],
+		  "description":"date the cash advance was issued",
+		  "type":[
+			 "null",
+			 "string"
+		  ],
+		  "format":"date-time"
+	   },
+	   "accountCode":{
+		  "dataClassification":[],
+		  "description":"cash advance account code",
+		  "type":[
+			 "string",
+			 "null"
+		  ]
+	   },
+	   "comment":{
+		  "dataClassification":[],
+		  "description":"user added comment",
+		  "type":[
+			 "null",
+			 "string"
+		  ]
+	   },
+	   "lastModifiedDate":{
+		  "dataClassification":[],
+		  "description":"UTC timestamp of modification",
+		  "type":"string",
+		  "format":"date-time"
+	   },
+	   "hasReceipts":{
+		  "dataClassification":[],
+		  "description":"receipts status",
+		  "type":[
+			 "null",
+			 "boolean"
+		  ]
+	   },
+	   "reimbursementCurrency":{
+		  "dataClassification":[],
+		  "description":"3 letter ISO currency code. This represents the currency of cash advance",
+		  "type":"string"
+	   },
+	   "travelStartDate":{
+		  "dataClassification":[],
+		  "description":"The projected first date of travel",
+		  "type":[
+			 "null",
+			 "string"
+		  ],
+		  "format":"date-time"
+	   },
+	   "travelEndDate":{
+		  "dataClassification":[],
+		  "description":"The projected end date of travel",
+		  "type":[
+			 "null",
+			 "string"
+		  ],
+		  "format":"date-time"
+	   },
+	   "submittedBalance":{
+		  "dataClassification":[],
+		  "description":"Amount submitted so far against this cash advance",
+		  "type":"string"
+	   },
+	   "unsubmittedBalance":{
+		  "dataClassification":[],
+		  "description":"Amount yet to be submitted against this cash advance",
+		  "type":"string"
+	   },
+	   "country":{
+		  "dataClassification":[],
+		  "description":"country where this cash advance will be used",
+		  "type":[
+			 "null",
+			 "string"
+		  ]
+	   },
+	   "countrySubdivision":{
+		  "dataClassification":[],
+		  "description":"state where this cash advance will be used",
+		  "type":[
+			 "null",
+			 "string"
+		  ]
+	   },
+	   "reportingGroup": {
+		  "dataClassification": [],
+		  "type": "object",
+		  "additionalProperties": false,
+		  "properties": {
+			"id": {
+			  "type": [
+				 "null", 
+				 "string"
+			  ],
+			  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+			},
+			"name": {
+			  "type": [
+				"string",
+				"null"
+			  ]
 			}
-		},
-		"ticketNumber": {
-			"type": ["string","null"],
-			"example": "0183693651174",
-			"description": "Ticket Number",
-			"dataClassification": ["sensitive"]
-		},
-		"totalFare": {
-			"description": "Total fare",
-			"$ref": "AmountModelV4.json#"
-		},
-		"totalFee": {
-			"description": "Total fee",
-			"$ref": "AmountModelV4.json#"
-		},
-		"totalTaxAmount": {
-			"description": "Total tax amount",
-			"$ref": "AmountModelV4.json#"
-		},
-		"travelAgencyName": {
-			"type": ["string","null"],
-			"example": "SOUTHWEST AIRLINES CO.",
-			"description": "Name of the travel agency that booked the ticket",
-			"dataClassification": []
-		},
-		"baseFare": {
-			"description": "Base fare",
-			"$ref": "AmountModelV4.json#"
-		},
-		"commodityCode": {
-			"type": "string",
-			"example": "120-00",
-			"description": "Commodity code",
-			"dataClassification": []
-		},
-		"conjunctionId": {
-			"type": "string",
-			"example": "1234567",
-			"description": "ID for a ticket that contains an itinerary that is more than four segments",
-			"dataClassification": []
-		},
-		"customData": {
-			"type": "array",
-			"description": "Custom data for travel",
-			"items": {
-				"$ref": "CustomDataModelV4Post.json#"
-			}
-		},
-		"customerData": {
-			"type": "string",
-			"description": "Customer data",
-			"dataClassification": []
-		},
-		"domestic": {
-			"type": "boolean",
-			"description": "Indicates whether the the travel is domestic",
-			"dataClassification": []
-		},
-		"electronicTicket": {
-			"type": "boolean",
-			"description": "Indicates whether the ticket is an e-ticket",
-			"dataClassification": []
-		},
-		"endorsements": {
-			"type": "string",
-			"description": "Describes the fare issued by the airline",
-			"dataClassification": []
-		},
-		"exchangedTicketAmount": {
-			"description": "Exchanged ticket amount",
-			"$ref": "AmountModelV4.json#"
-		},
-		"exchangedTicketNumber": {
-			"type": "string",
-			"description": "Number of the new ticket which replaces the original ticket",
-			"dataClassification": ["sensitive"]
-		},
-		"refundTicketNumber": {
-			"type": "string",
-			"description": "Refund ticket number",
-			"dataClassification": ["sensitive"]
-		},
-		"issuingCarrier": {
-			"type": "string",
-			"description": "Airline or railway carrier",
-			"dataClassification": []
-		},
-		"restrictionsApply": {
-			"type": "boolean",
-			"description": "Identifier noting ticket purchased has some restriction associated with its use",
-			"dataClassification": []
-		},
-		"travelAgencyInvoiceNumber": {
-			"type": "string",
-			"description": "Invoice number assigned by the travel agency that booked the ticket",
-			"dataClassification": []
-		},
-		"travelAgencyCode": {
-			"type": "string",
-			"description": "Code assigned to the travel agency that booked the ticket",
-			"dataClassification": []
-		}
+		  }
+	   },      
+	   "cashAdvanceOwner":{
+		  "description":"traveler UUID",
+		  "type":"string",
+		  "dataClassification":["PII"]
+	   },
+	   "carryOver":{
+		  "dataClassification":[],
+		  "description":"indicates if this cash advance can be used in multiple reports",
+		  "type":[
+			 "null",
+			 "boolean"
+		  ]
+	   },
+	   "city":{
+		  "dataClassification":[],
+		  "description":"city where this cash advance will be used",
+		  "type":[
+			 "null",
+			 "string"
+		  ]
+	   },
+	   "companyId":{
+		  "dataClassification":[],
+		  "description":"uuid of the company",
+		  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+		  "type":"string"
+	   },
+	   "comments":{
+		  "description":"list of comments attached to the cash advance",
+		  "type":[
+			 "null",
+			 "array"
+		  ],
+		  "items":{
+			 "type":"object",
+			 "additionalProperties":false,
+			 "properties":{
+				"comment":{
+				   "dataClassification":[],
+				   "type":[
+					  "null",
+					  "string"
+				   ]
+				},
+				"creationDate":{
+				   "dataClassification":[],
+				   "type":[
+					  "null",
+					  "string"
+				   ],
+				   "format":"date-time"
+				},
+				"addedBy":{
+				   "description":"UUID of the comment author",
+				   "type":[
+					  "null",
+					  "string"
+				   ],
+				   "dataClassification":["PII"]
+				},
+				"addedFor":{
+				   "description":"UUID of the person for which the comment has been added",
+				   "type":[
+					  "null",
+					  "string"
+				   ],
+				   "dataClassification":["PII"]
+				}
+			 }
+		  }
+	   },
+	   "workflowSteps":{
+		  "type":[
+			 "null",
+			 "array"
+		  ],
+		  "items":{
+			 "type":"object",
+			 "additionalProperties":false,
+			 "properties":{
+				"sequenceNumber":{
+				   "dataClassification":[],
+				   "type":[
+					  "null",
+					  "integer"
+				   ]
+				},
+				"entryTimestamp":{
+				   "dataClassification":[],
+				   "type":[
+					  "null",
+					  "string"
+				   ],
+				   "format":"date-time"
+				},
+				"actionTimestamp":{
+				   "dataClassification":[],
+				   "type":[
+					  "null",
+					  "string"
+				   ],
+				   "format":"date-time"
+				},
+				"actorUUID":{
+				   "description":"UUID of who took the action",
+				   "type":[
+					  "null",
+					  "string"
+				   ],
+				   "dataClassification":["PII"]
+				},
+				"delegateUUID":{
+				   "description":"UUID of delegate if delegate took the action",
+				   "type":[
+					  "null",
+					  "string"
+				   ],
+				   "dataClassification":["PII"]
+				},
+				"roleCode":{
+				   "dataClassification":[],
+				   "type":[
+					  "null",
+					  "string"
+				   ],
+				   "enum":[
+					  "SYSTEM",
+					  "MANAGER",
+					  "MANAGER2",
+					  "CO_APPROVER",
+					  "AUTH_APPROVER",
+					  "BDGT_APPROVER",
+					  "CASHADV_ADMIN"
+				   ]
+				},
+				"finalStatus":{
+				   "dataClassification":[],
+				   "type":[
+					  "null",
+					  "string"
+				   ]
+				}
+			 }
+		  }
+	   },
+	   "returns":{
+		  "type":[
+			 "null",
+			 "array"
+		  ],
+		  "items":{
+			 "type":[
+				"null",
+				"object"
+			 ],
+			 "additionalProperties":false,
+			 "properties":{
+				"returnTimestamp":{
+				   "dataClassification":[],
+				   "type":[
+					  "null",
+					  "string"
+				   ],
+				   "format":"date-time"
+				},
+				"returnAmount":{
+				   "dataClassification":[],
+				   "type":[
+					  "null",
+					  "string"
+				   ]
+				}
+			 }
+		  }
+	   }
 	},
-	"additionalProperties": false
-}
+	"required":[
+	   "companyId",
+	   "lastModifiedDate",
+	   "name",
+	   "cashAdvanceOwner",
+	   "cashAdvanceId",
+	   "requestDate",
+	   "submittedBalance",
+	   "unsubmittedBalance",
+	   "amountRequested",
+	   "reportingGroup",
+	   "paymentType",
+	   "approvalStatus"
+	],
+	"additionalProperties":false
+ }
+ 
